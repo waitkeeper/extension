@@ -1,9 +1,11 @@
 import { Compilation, Compiler, sources } from "webpack"
+// 从webpack中导入Compilation 和 Compiler 类以与构建过程交互
+// 从webpack中导入sources 以操作源代码
 
 const PLUGIN_NAME = "RuntimeDefine"
 const WINDOW_PROVIDER_FILENAME = "window-provider.js"
 const PROVIDER_BRIDGE_FILENAME = "provider-bridge.js"
-
+// 在webpack.config.js中定义了插件的执行
 export default class InjectWindowProvider {
   // eslint-disable-next-line class-methods-use-this
   apply(compiler: Compiler): void {

@@ -7,6 +7,7 @@ import {
 
 const windowOriginAtLoadTime = window.location.origin
 
+// 在webpack构建过程中会替换掉这里内容
 const INJECTED_WINDOW_PROVIDER_SOURCE = "@@@WINDOW_PROVIDER@@@"
 
 export function connectProviderBridge(): void {
