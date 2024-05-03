@@ -115,7 +115,7 @@ export function createBackgroundAsyncThunk<
   options?: AsyncThunkOptions<ThunkArg, ThunkApiConfig>
 ): ((payload: ThunkArg) => Action<TypePrefix> & { payload: ThunkArg }) &
   Pick<AsyncThunk<Returned, ThunkArg, ThunkApiConfig>, AsyncThunkProps> {
-  // Exit early if this type prefix is already aliased for handling in the
+      // Exit early if this type prefix is already aliased for handling in the
   // background script.
   if (allAliases[typePrefix]) {
     throw new Error("Attempted to register an alias twice.")

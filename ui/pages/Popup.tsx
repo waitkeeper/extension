@@ -92,7 +92,8 @@ export function Main(): ReactElement {
   const routeHistoryEntries = useBackgroundSelector(
     (state) => state.ui.routeHistoryEntries
   )
-
+  console.log(`routeHistoryEntries:${routeHistoryEntries}`);
+  
   // See comment above call of saveHistoryEntries
   function saveHistoryEntries(routeHistoryEntities: Location[]) {
     const entries = routeHistoryEntities
