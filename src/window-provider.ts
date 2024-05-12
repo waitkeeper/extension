@@ -17,8 +17,8 @@ Object.defineProperty(window, "tally", {
       window.removeEventListener("message", fn, false),
     origin: window.location.origin,
   }),
-  writable: false,
-  configurable: false,
+  writable: false, // 一般情况下，修改一个对象中的属性值，可以使用 obj.name = 'Jim' 的形式。这里设置成false后就不可以修改了
+  configurable: false, // 当对象的一个属性不需要时，可以通过delete来删除。但是configurable设置成false后，就不可以删除了
 })
 
 if (!window.walletRouter) {
@@ -27,6 +27,7 @@ if (!window.walletRouter) {
       currentProvider: window.tally,
       lastInjectedProvider: window.ethereum,
       tallyProvider: window.tally,
+      // 存疑：此逻辑似乎优先使用通过 window.ethereum（如果可用）注册的现有提供程序 ? 
       providers: [
         // deduplicate the providers array: https://medium.com/@jakubsynowiec/unique-array-values-in-javascript-7c932682766c
         ...new Set([
@@ -34,8 +35,8 @@ if (!window.walletRouter) {
           // eslint-disable-next-line no-nested-ternary
           ...(window.ethereum
             ? // let's use the providers that has already been registered
-              // This format is used by coinbase wallet
-              Array.isArray(window.ethereum.providers)
+            // This format is used by coinbase wallet
+            Array.isArray(window.ethereum.providers)
               ? [...window.ethereum.providers, window.ethereum]
               : [window.ethereum]
             : []),
