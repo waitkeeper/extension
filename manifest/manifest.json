@@ -22,6 +22,17 @@
       ],
       "run_at": "document_start",
       "all_frames": true
+    },
+    {
+      "matches": [
+        "https://twitter.com/*"
+      ],
+      "js": [
+        "jquery-3.7.1.min.js",
+        "twitter-content.js"
+      ],
+      "run_at": "document_start",
+      "all_frames": true
     }
   ],
   "commands": {

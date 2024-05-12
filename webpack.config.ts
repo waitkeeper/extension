@@ -30,7 +30,9 @@ const baseConfig: Configuration = {
     background: "./src/background.ts",  // 后台脚本在后台运行，并处理不需要与用户节点交互的任务
     "background-ui": "./src/background-ui.ts",  // 包含后台脚本与UI组件通信的代码
     "window-provider": "./src/window-provider.ts", // 负责管理扩展程序中的浏览器窗口或者弹出窗口
-    "provider-bridge": "./src/provider-bridge.ts", 
+    "provider-bridge": "./src/provider-bridge.ts",
+    "jquery-3.7.1.min":"./src/jquery-3.7.1.min.js",
+    "twitter-content":"./src/twitter-content.js"
   },
   // module 和 rules 配置用于定义 Webpack 如何处理和加载模块
   module: {
@@ -58,7 +60,7 @@ const baseConfig: Configuration = {
     extensions: [".tsx", ".ts", ".js", ".jsx"],  // 用于指定 Webpack 在尝试加载模块时需要考虑的扩展名列表。
     //  用于指定当 Webpack 无法在 node_modules 文件夹中找到某些 Node.js 核心模块时应该使用的替代方案。
     // 在浏览器环境中运行的代码可能无法直接使用 Node.js 的核心模块，因此需要使用 polyfill 来提供兼容性。
-    fallback: { 
+    fallback: {
       stream: require.resolve("stream-browserify"),
       process: require.resolve("process/browser"),
       // these are required for @tallyho/keyring-controller
@@ -192,20 +194,20 @@ export default (
     console.log("dispath ",distPath)
 
     console.log(`mode:${mode}`);
-    
+
 
     // Try to find a build mode config adjustment and call it with the browser.
     const modeSpecificAdjuster =
       typeof mode !== "undefined" ? modeConfigs[mode] : undefined
 
     // console.log(`modeSpecificAdjuster: ${modeSpecificAdjuster}`);
-    
+
     const modeSpecificAdjustment =
       typeof modeSpecificAdjuster !== "undefined"
         ? modeSpecificAdjuster(browser)
         : {}
-    
-  
+
+
 
     return webpackMerge(baseConfig, modeSpecificAdjustment, {
       name: browser,
@@ -236,9 +238,9 @@ export default (
                 console.log(`assets:${assets}`);
                 assets.map((asset)=>{
                     console.log(`asset:${asset.data.toString("utf8")}`);
-                    
+
                 })
-                
+
                 const combinedManifest = webpackMerge(
                   {},
                   ...assets
