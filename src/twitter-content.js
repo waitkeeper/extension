@@ -1,23 +1,31 @@
-const { env } = require("process")
-
 // 添加滚动监听器
 function add_scrollend_event() {
   // 一个 class 属性为"user-panel main"的 div 元素<div>(<div class="user-panel main">)
   // 内包含一个 name 属性为"login"的 input 元素<input> (<input name="login"/>) ，如何选择
   // var el = document.querySelector("div.user-panel.main input[name='login']");
   console.log(`add scrollend event`)
-  document.addEventListener(`scrollend`, (event) => {
-    console.log(`========= document scrollends`)
-    console.log(event)
+  document.addEventListener(`scrollend`, scrollendCallback)
+}
 
-    const sel = `#react-root > div > div > div.css-175oi2r.r-1f2l425.r-13qz1uu.r-417010.r-18u37iz > main > div > div > div > div.css-175oi2r.r-14lw9ot.r-jxzhtn.r-1ua6aaf.r-th6na.r-1phboty.r-16y2uox.r-184en5c.r-1c4cdxw.r-1t251xo.r-f8sm7e.r-13qz1uu.r-1ye8kvj > div > div.css-175oi2r.r-f8sm7e.r-13qz1uu.r-1ye8kvj`
-    const e1 = document.querySelector(sel)
-    console.log(e1)
+function scrollendCallback(event) {
+  console.log(`========= document scrollends`)
+  console.log(event)
 
-    const targetElements = e1.querySelector(`section > div > div`)
-    console.log(targetElements)
-    // TODO
-  })
+  const sel = `#react-root > div > div > div.css-175oi2r.r-1f2l425.r-13qz1uu.r-417010.r-18u37iz > main > div > div > div > div.css-175oi2r.r-14lw9ot.r-jxzhtn.r-1ua6aaf.r-th6na.r-1phboty.r-16y2uox.r-184en5c.r-1c4cdxw.r-1t251xo.r-f8sm7e.r-13qz1uu.r-1ye8kvj > div > div.css-175oi2r.r-f8sm7e.r-13qz1uu.r-1ye8kvj`
+  const e1 = document.querySelector(sel)
+  console.log(e1)
+
+  const targetElements = e1.querySelectorAll(`section > div > div > div`)
+  let user_list = []
+  for (let i = 0; i < targetElements.length; i++) {
+    let target_post = targetElements[i]
+    let elea = target_post.querySelector(`div[data-testid="User-Name"] > div a`)
+    if (elea) {
+      let userUrl = elea.href
+      const username = userUrl.split("/").pop()
+      console.log(`username: ${username}`)
+    }
+  }
 }
 
 // 选择需要观察变动的节点
