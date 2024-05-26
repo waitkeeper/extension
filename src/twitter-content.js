@@ -1,3 +1,28 @@
+// import $ from "jquery"
+// import "annotator-full.min.js"
+jQuery(function ($) {
+  if (typeof $.fn.annotator !== "function") {
+    alert(
+      "Ooops! it looks like you haven't built the Annotator concatenation file. " +
+        "Either download a tagged release from GitHub, or modify the Cakefile to point " +
+        "at your copy of the YUI compressor and run `cake package`."
+    )
+  } else {
+    let container = document.createElement("div")
+    container.id = "annotation-container"
+    document.body.appendChild(container)
+    // This is the important bit: how to create the annotator and add
+    // plugins
+    $("#annotation-container")
+      .annotator()
+      .annotator("addPlugin", "Permissions")
+      .annotator("addPlugin", "Tags")
+
+    $("#annotation-container")
+      .data("annotator")
+      .plugins["Permissions"].setUser("Joe Bloggs")
+  }
+})
 
 function add_scrollend_event() {
   // 一个 class 属性为"user-panel main"的 div 元素<div>(<div class="user-panel main">)

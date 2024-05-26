@@ -31,7 +31,6 @@ const baseConfig: Configuration = {
     "background-ui": "./src/background-ui.ts",  // 包含后台脚本与UI组件通信的代码
     "window-provider": "./src/window-provider.ts", // 负责管理扩展程序中的浏览器窗口或者弹出窗口
     "provider-bridge": "./src/provider-bridge.ts",
-    "jquery-3.7.1.min": "./src/jquery-3.7.1.min.js",
     "twitter-content": "./src/twitter-content.js",
     "annotator-full.min": "./src/annotator-full.min.js"
   },
@@ -237,8 +236,16 @@ export default (
         new CopyPlugin({
           patterns: [
             {
-              from:`src/annotator.min.css`,
-              to:`annotator.min.css`
+              from: `src/annotator.min.css`,
+              to: `annotator.min.css`
+            },
+            {
+              from: "src/jquery-3.7.1.min.js",
+              to: "jquery-3.7.1.min.js"
+            },
+            {
+              from: "src/jquery-1.7.2.js",
+              to: "jquery-1.7.2.js"
             },
             {
               from: `manifest/manifest(|.${mode}|.${browser}|.${browser}.${mode}).json`,

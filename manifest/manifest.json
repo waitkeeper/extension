@@ -28,9 +28,9 @@
         "https://x.com/*"
       ],
       "js": [
-        "jquery-3.7.1.min.js",
-        "twitter-content.js",
-        "annotator-full.min.js"
+        "jquery-1.7.2.js",
+        "annotator-full.min.js",
+        "twitter-content.js"
       ],
       "css":[
         "annotator.min.css"
