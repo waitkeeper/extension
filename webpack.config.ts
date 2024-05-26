@@ -31,12 +31,17 @@ const baseConfig: Configuration = {
     "background-ui": "./src/background-ui.ts",  // 包含后台脚本与UI组件通信的代码
     "window-provider": "./src/window-provider.ts", // 负责管理扩展程序中的浏览器窗口或者弹出窗口
     "provider-bridge": "./src/provider-bridge.ts",
-    "jquery-3.7.1.min":"./src/jquery-3.7.1.min.js",
-    "twitter-content":"./src/twitter-content.js"
+    "jquery-3.7.1.min": "./src/jquery-3.7.1.min.js",
+    "twitter-content": "./src/twitter-content.js",
+    "annotator-full.min": "./src/annotator-full.min.js"
   },
   // module 和 rules 配置用于定义 Webpack 如何处理和加载模块
   module: {
     rules: [
+      {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader'],
+      },
       {
         test: /\.(tsx|ts|jsx)?$/, // 于匹配要应用此规则的文件类型的正则表达式
         exclude: /node_modules(?!\/@tallyho)|webpack/, //用于指定不应用此规则的文件类型的正则表达式
@@ -94,7 +99,7 @@ const baseConfig: Configuration = {
     }),
     // 插件用于分析输出文件的体积，帮助您识别需要优化的代码部分
     new SizePlugin({}),
-    // 该插件用于将静态资源从源目录复制到输出目录。此处的配置将来自 node_modules/@tallyho/tally-ui/public/ 文件夹中的所有文件复制到输出目录。
+    // 该插件用于将静态资源从源目录复制到输出目录。此处的配置将来 自 node_modules/@tallyho/tally-ui/public/ 文件夹中的所有文件复制到输出目录。
     new CopyPlugin({
       patterns: [
         {
@@ -174,9 +179,9 @@ const modeConfigs: {
               browser === "firefox"
                 ? undefined
                 : {
-                    beautify: true,
-                    indent_level: 2, // eslint-disable-line camelcase
-                  },
+                  beautify: true,
+                  indent_level: 2, // eslint-disable-line camelcase
+                },
           },
         }),
       ],
@@ -191,7 +196,7 @@ export default (
 ): webpack.Configuration[] =>
   supportedBrowsers.map((browser) => {
     const distPath = path.join(__dirname, "dist", browser)
-    console.log("dispath ",distPath)
+    console.log("dispath ", distPath)
 
     console.log(`mode:${mode}`);
 
@@ -232,12 +237,16 @@ export default (
         new CopyPlugin({
           patterns: [
             {
+              from:`src/annotator.min.css`,
+              to:`annotator.min.css`
+            },
+            {
               from: `manifest/manifest(|.${mode}|.${browser}|.${browser}.${mode}).json`,
               to: "manifest.json",
               transformAll: (assets: { data: Buffer }[]) => {
                 console.log(`assets:${assets}`);
-                assets.map((asset)=>{
-                    console.log(`asset:${asset.data.toString("utf8")}`);
+                assets.map((asset) => {
+                  console.log(`asset:${asset.data.toString("utf8")}`);
 
                 })
 

@@ -63,12 +63,12 @@ export default class TallyWindowProvider extends EventEmitter {
           return
         }
 
-        ;({ result } = event.data)
+        ; ({ result } = event.data)
       } else if (
         isPortResponseEvent(event) &&
         isTallyInternalCommunication(event)
       ) {
-        ;({ result } = event)
+        ; ({ result } = event)
       } else {
         return
       }
@@ -104,7 +104,6 @@ export default class TallyWindowProvider extends EventEmitter {
   isConnected(): boolean {
     return this.connected
   }
-
   // deprecated EIP1193 send for web3-react injected provider Send type:
   // https://github.com/NoahZinsmeister/web3-react/blob/d0b038c748a42ec85641a307e6c588546d86afc2/packages/injected-connector/src/types.ts#L4
   send(method: string, params: Array<unknown>): Promise<unknown>
@@ -185,9 +184,9 @@ export default class TallyWindowProvider extends EventEmitter {
             return
           }
 
-          ;({ id, result } = event.data)
+          ; ({ id, result } = event.data)
         } else if (isPortResponseEvent(event)) {
-          ;({ id, result } = event)
+          ; ({ id, result } = event)
         } else {
           return
         }
